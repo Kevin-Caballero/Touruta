@@ -17,11 +17,11 @@ public class User {
         this.nickName = nickName;
     }
 
-    public int getUserId() {
-        return userId;
+    public User() {
     }
 
-    public User() {
+    public int getUserId() {
+        return userId;
     }
 
     public void setUserId(int userId) {

@@ -67,11 +67,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         newUser=new User(email,password,name,lastname,nickname);
 
-        try {
-            dbHandler.AddUser(newUser);
-            Toast.makeText(this,"USER ADDED SUCCESSFULLY",Toast.LENGTH_SHORT).show();
-        }catch (Exception ex){
-            Toast.makeText(this,"ERROR ADDING",Toast.LENGTH_SHORT).show();
+        if(dbHandler.AddUser(newUser)==1){
+            Toast.makeText(this,"NICE", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this,"MAL", Toast.LENGTH_SHORT).show();
         }
 
         CleanForm();

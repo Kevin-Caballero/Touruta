@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.icu.text.UnicodeSetSpanner;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -23,8 +24,11 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_LAST_NAME="lastName";
     public static final String COLUMN_NICK_NAME="nicNname";
 
+    Context context;
+
     public MyDBHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+        context=context;
     }
 
     @Override
@@ -43,12 +47,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        //onCreate(db);
+    public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        onCreate(db);
     }
 
-    public void AddUser(User user){
+    public int AddUser(User user){
         ContentValues values = new ContentValues();
 
         values.put(COLUMN_EMAIL,user.getEmail());
@@ -59,16 +63,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
 
-        db.insert(TABLE_USERS,null,values);
-
-        db.close();
-    }
-
-    public String DataBaseToString(){
-        String dbString="";
-        SQLiteDatabase db = getWritableDatabase(;
-        String query = "SELECT * FROM" + TABLE_USERS + "WHERE 1";
-
-
+        if(db.insert(TABLE_USERS,null,values)!=0.0){
+            //USUARIO INSERTADO
+            db.close();
+            return 1;
+        }else{
+            db.close();
+            return 0;
+        }
     }
 }
