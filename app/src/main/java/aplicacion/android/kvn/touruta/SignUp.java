@@ -70,7 +70,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         if(dbHandler.AddUser(newUser)==1){
             Toast.makeText(this,"NICE", Toast.LENGTH_SHORT).show();
         }else{
-            Toast.makeText(this,"MAL", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"BAD", Toast.LENGTH_SHORT).show();
         }
 
         CleanForm();

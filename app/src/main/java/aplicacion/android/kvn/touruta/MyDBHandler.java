@@ -63,13 +63,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         SQLiteDatabase db = getWritableDatabase();
 
-        if(db.insert(TABLE_USERS,null,values)!=0.0){
+        if(db.insert(TABLE_USERS,null,values) != -1){
             //USUARIO INSERTADO
             db.close();
             return 1;
         }else{
             db.close();
-            return 0;
+            return -1;
         }
     }
 }
