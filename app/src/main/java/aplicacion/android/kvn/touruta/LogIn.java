@@ -3,6 +3,7 @@ package aplicacion.android.kvn.touruta;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +15,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
     Button btnLoginLI, btnSignupLI;
     EditText txtEmailLI, txtPasswordLI;
+    SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +28,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         btnSignupLI =findViewById(R.id.btnSignupLI);
         btnLoginLI.setOnClickListener(this);
         btnSignupLI.setOnClickListener(this);
-
-
     }
 
     @Override
@@ -42,10 +42,15 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void Login() {
-        if(txtEmailLI.getText().toString().equals("admin") && txtPasswordLI.getText().toString().equals("admin")){
-            Toast.makeText(this,"BienVenido",Toast.LENGTH_LONG).show();
-            //Intent toursIntent = new Intent(this,ToursActivity.class);
-            //startActivity(toursIntent);
+        String insertedEmail = txtEmailLI.getText().toString().toLowerCase();
+        String returnedPassword;
+        db=SignUp.dbHandler.getReadableDatabase();
+        Cursor c = db.query(MyDBHandler.TABLE_USERS,new String[] {MyDBHandler.COLUMN_USER_PASSWORD},MyDBHandler.COLUMN_USER_EMAIL + "=?",new String[]{insertedEmail},null,null,null);
+        if(c.moveToFirst()){
+            returnedPassword=c.getString(0);
+            if(returnedPassword.compareTo(txtPasswordLI.getText().toString())==0){
+                Toast.makeText(this,"ADELANTE",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

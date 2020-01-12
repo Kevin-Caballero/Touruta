@@ -2,6 +2,7 @@ package aplicacion.android.kvn.touruta;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -16,7 +17,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     Button btnSignup;
     EditText txtEmailSU,txtPasswordSU,txtPassword2SU,txtNameSU,txtLastnameSU,txtNicknameSU;
     User newUser;
-    MyDBHandler dbHandler;
+    public static MyDBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +44,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         //Validar email
         if(EmailValidation(txtEmailSU.getText().toString())){
-            email=txtEmailSU.getText().toString();
+            email=txtEmailSU.getText().toString().toLowerCase();
         }
         else{
             Toast.makeText(this,"EMAIL ERROR",Toast.LENGTH_SHORT).show();
@@ -68,7 +69,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         newUser=new User(email,password,name,lastname,nickname);
 
         if(dbHandler.AddUser(newUser)==1){
-            Toast.makeText(this,"NICE", Toast.LENGTH_SHORT).show();
+            Intent LogInIntent = new Intent(this,LogIn.class);
+            startActivity(LogInIntent);
         }else{
             Toast.makeText(this,"BAD", Toast.LENGTH_SHORT).show();
         }
