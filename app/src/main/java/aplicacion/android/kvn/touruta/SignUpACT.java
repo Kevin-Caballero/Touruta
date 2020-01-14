@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
-public class SignUp extends AppCompatActivity implements View.OnClickListener {
+public class SignUpACT extends AppCompatActivity implements View.OnClickListener {
 
     Button btnSignup;
     EditText txtEmailSU,txtPasswordSU,txtPassword2SU,txtNameSU,txtLastnameSU,txtNicknameSU;
@@ -69,10 +69,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         newUser=new User(email,password,name,lastname,nickname);
 
         if(dbHandler.AddUser(newUser)==1){
-            Intent LogInIntent = new Intent(this,LogIn.class);
+            Intent LogInIntent = new Intent(this, LogInACT.class);
             startActivity(LogInIntent);
         }else{
-            Toast.makeText(this,"BAD", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"ERROR", Toast.LENGTH_SHORT).show();
         }
 
         CleanForm();

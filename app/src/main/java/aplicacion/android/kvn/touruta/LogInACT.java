@@ -9,9 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-public class LogIn extends AppCompatActivity implements View.OnClickListener {
+public class LogInACT extends AppCompatActivity implements View.OnClickListener {
 
     Button btnLoginLI, btnSignupLI;
     EditText txtEmailLI, txtPasswordLI;
@@ -37,19 +36,21 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void Signup() {
-        Intent SignUpIntent = new Intent(this,SignUp.class);
+        Intent SignUpIntent = new Intent(this, SignUpACT.class);
         startActivity(SignUpIntent);
     }
 
     private void Login() {
         String insertedEmail = txtEmailLI.getText().toString().toLowerCase();
         String returnedPassword;
-        db=SignUp.dbHandler.getReadableDatabase();
+        db= SignUpACT.dbHandler.getReadableDatabase();
         Cursor c = db.query(MyDBHandler.TABLE_USERS,new String[] {MyDBHandler.COLUMN_USER_PASSWORD},MyDBHandler.COLUMN_USER_EMAIL + "=?",new String[]{insertedEmail},null,null,null);
         if(c.moveToFirst()){
             returnedPassword=c.getString(0);
             if(returnedPassword.compareTo(txtPasswordLI.getText().toString())==0){
-                Toast.makeText(this,"ADELANTE",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,"ADELANTE",Toast.LENGTH_SHORT).show();
+                Intent ToursIntent = new Intent(this, ToursACT.class);
+                startActivity(ToursIntent);
             }
         }
     }

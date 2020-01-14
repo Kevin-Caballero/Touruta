@@ -60,8 +60,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 +" ( "
                 + COLUMN_COMMENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COLUMN_COMMENT_TOUR_ID + " INTEGER, "
-                + COLUMN_COMMENT_USER_ID + "INTEGER, "
-                + COLUMN_COMMENT_CONTENT + "TEXT"
+                + COLUMN_COMMENT_USER_ID + " INTEGER, "
+                + COLUMN_COMMENT_CONTENT + " TEXT"
                 +" ); ";
         db.execSQL(creationQueryComments);
 
@@ -86,9 +86,9 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 + COLUMN_TOUR_NAME + " TEXT, "
                 + COLUMN_TOUR_DESCRIPTION + " TEXT, "
                 + COLUMN_TOUR_COUNTRY + " TEXT, "
-                + COLUMN_TOUR_DISTANCE + " REAL, "
-                + COLUMN_TOUR_DURATION + " REAL, "
-                + COLUMN_TOUR_NUM_CHECKPOINTS + " INTEGER, "
+                + COLUMN_TOUR_DISTANCE + " TEXT, "
+                + COLUMN_TOUR_DURATION + " TEXT, "
+                + COLUMN_TOUR_NUM_CHECKPOINTS + " TEXT, "
                 + COLUMN_TOUR_PICTURE + " TEXT, "
                 + "FOREIGN KEY (" + COLUMN_TOUR_ID + ") REFERENCES " + TABLE_COMMENTS +"("+COLUMN_COMMENT_TOUR_ID+") "
                 +" ); ";
@@ -115,6 +115,29 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         if(db.insert(TABLE_USERS,null,values) != -1){
             //USUARIO INSERTADO
+            db.close();
+            return 1;
+        }else{
+            db.close();
+            return -1;
+        }
+    }
+
+    public int AddTour(Tour tour){
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_TOUR_NAME,tour.getTourName());
+        values.put(COLUMN_TOUR_DESCRIPTION,tour.getTourDescription());
+        values.put(COLUMN_TOUR_COUNTRY,tour.getTourCountry());
+        values.put(COLUMN_TOUR_DISTANCE,tour.getTourDistance());
+        values.put(COLUMN_TOUR_DURATION,tour.getTourDuration());
+        values.put(COLUMN_TOUR_NUM_CHECKPOINTS,tour.getTourNumCheckpoints());
+        values.put(COLUMN_TOUR_PICTURE,tour.getTourPicture());
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        if(db.insert(TABLE_TOURS,null,values) != -1){
+            //TOUR INSERTADO
             db.close();
             return 1;
         }else{
