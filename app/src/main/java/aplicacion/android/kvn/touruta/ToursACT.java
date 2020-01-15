@@ -13,6 +13,7 @@ import java.io.InputStream;
 
 public class ToursACT extends AppCompatActivity {
 
+    MyDBHandler dbHandler;
     SQLiteDatabase db;
     Tour newTour;
 
@@ -21,6 +22,7 @@ public class ToursACT extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tours);
 
+        dbHandler=new MyDBHandler(this,MyDBHandler.DATABASE_NAME,null,1);
         FillToursTable();
 
     }
@@ -28,24 +30,22 @@ public class ToursACT extends AppCompatActivity {
     private void FillToursTable(){
         if(RecordsQuantity()==0){
             String[] tours = ReadArchive();
-            db= SignUpACT.dbHandler.getWritableDatabase();
-            db.beginTransaction();
+
+            db = dbHandler.getWritableDatabase();
             for (int i = 0; i < tours.length ; i++) {
                 String[] line = tours[i].split(";");
 
                 newTour=new Tour(line[0],line[1],line[2],line[3],line[4],line[5],line[6]);
 
-                SignUpACT.dbHandler.AddTour(newTour);
+                dbHandler.AddTour(newTour);
             }
             Toast.makeText(this,"REG="+tours.length,Toast.LENGTH_SHORT).show();
-            db.setTransactionSuccessful();
-            db.endTransaction();
             db.close();
         }
     }
 
     private long RecordsQuantity(){
-        db = SignUpACT.dbHandler.getReadableDatabase();
+        db = dbHandler.getReadableDatabase();
         long qnt = DatabaseUtils.queryNumEntries(db,MyDBHandler.TABLE_TOURS);
         db.close();
         return qnt;

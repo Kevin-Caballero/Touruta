@@ -14,7 +14,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION=1;
 
     //DATABASE
-    private static final String DATABASE_NAME="TOURUTA.db";
+    public static final String DATABASE_NAME="TOURUTA.db";
 
     //TABLES
     public static final String TABLE_USERS="users";
@@ -50,7 +50,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
 
     public MyDBHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+        super(context, name, factory, version);
         this.context=context;
     }
 
@@ -93,13 +93,12 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 + "FOREIGN KEY (" + COLUMN_TOUR_ID + ") REFERENCES " + TABLE_COMMENTS +"("+COLUMN_COMMENT_TOUR_ID+") "
                 +" ); ";
         db.execSQL(creationQueryTours);
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldversion, int newversion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-        onCreate(db);
+        //db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+        //onCreate(db);
     }
 
     public int AddUser(User user){

@@ -34,7 +34,7 @@ public class SignUpACT extends AppCompatActivity implements View.OnClickListener
         btnSignup=findViewById(R.id.btnSignUp);
         btnSignup.setOnClickListener(this);
 
-        dbHandler= new MyDBHandler(this,null,null,1);
+        dbHandler= new MyDBHandler(this,MyDBHandler.DATABASE_NAME,null,1);
 
     }
 
@@ -89,7 +89,7 @@ public class SignUpACT extends AppCompatActivity implements View.OnClickListener
     }
 
     private boolean PasswordValidation(String pw1, String pw2) {
-        if(pw1.length()>8 && pw2.length()>8)
+        if(pw1.length()>=8 && pw2.length()>=8)
             return pw1.equals(pw2);
         return false;
     }

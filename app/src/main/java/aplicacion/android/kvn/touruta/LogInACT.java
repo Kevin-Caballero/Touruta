@@ -15,6 +15,7 @@ public class LogInACT extends AppCompatActivity implements View.OnClickListener 
     Button btnLoginLI, btnSignupLI;
     EditText txtEmailLI, txtPasswordLI;
     SQLiteDatabase db;
+    MyDBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,8 @@ public class LogInACT extends AppCompatActivity implements View.OnClickListener 
         btnSignupLI =findViewById(R.id.btnSignupLI);
         btnLoginLI.setOnClickListener(this);
         btnSignupLI.setOnClickListener(this);
+
+        dbHandler=new MyDBHandler(this,MyDBHandler.DATABASE_NAME,null,1);
     }
 
     @Override
@@ -43,7 +46,7 @@ public class LogInACT extends AppCompatActivity implements View.OnClickListener 
     private void Login() {
         String insertedEmail = txtEmailLI.getText().toString().toLowerCase();
         String returnedPassword;
-        db= SignUpACT.dbHandler.getReadableDatabase();
+        db = dbHandler.getReadableDatabase();
         Cursor c = db.query(MyDBHandler.TABLE_USERS,new String[] {MyDBHandler.COLUMN_USER_PASSWORD},MyDBHandler.COLUMN_USER_EMAIL + "=?",new String[]{insertedEmail},null,null,null);
         if(c.moveToFirst()){
             returnedPassword=c.getString(0);
