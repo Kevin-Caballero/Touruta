@@ -1,4 +1,4 @@
 Experiencia gastronómica;Una ruta en la que podrás experimentar todos los matices de la gastronomía del país vasco;España;5;2:20;7;experiencia_gastronomica
 Acercamiento histórico;Un acercamiento a la historia de esta maravillosa ciudad a través de sus calles monumentos mas emblemáticos;España;3;2:00;5;acercamiento_historico
 Donde se juntan mar y tierra;Un recorrido por las costas y montes de Donostia, donde poder apreciar lugares increíbles y paisajes para recordar;España;8;3:30;11;mar_y_tierra
-Ambos lados de una frontera;Un paseo por Irun y por Hendaya en el que descubrir curiosidades y conocer lo que sucedió en estos lugares a lo largo de su historia;España;4;2:45;6;ambos_lados_frontera
+Dos lados, una frontera;Un paseo por Irun y Hendaya en el que descubrir curiosidades y conocer lo que sucedió en estos lugares a lo largo de su historia;España;4;2:45;6;dos_lados_frontera
