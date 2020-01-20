@@ -44,8 +44,14 @@ public class LogInACT extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void Login() {
-        String insertedEmail = txtEmailLI.getText().toString().toLowerCase();
+        String insertedEmail="";
         String returnedPassword;
+        try {
+            insertedEmail = txtEmailLI.getText().toString().toLowerCase();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
         db = dbHandler.getReadableDatabase();
         Cursor c = db.query(MyDBHandler.TABLE_USERS,new String[] {MyDBHandler.COLUMN_USER_PASSWORD},MyDBHandler.COLUMN_USER_EMAIL + "=?",new String[]{insertedEmail},null,null,null);
         if(c.moveToFirst()){

@@ -20,6 +20,8 @@ class Tour {
         this.tourPicture = tourPicture;
     }
 
+    public Tour(){}
+
     public int getTourId() {
         return tourId;
     }
