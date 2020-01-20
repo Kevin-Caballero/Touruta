@@ -22,6 +22,7 @@ public class ToursACT extends AppCompatActivity {
     Tour newTour;
     RecyclerView recyclerView;
     ArrayList<Tour> tourList;
+    String[] pictures;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,13 +33,13 @@ public class ToursACT extends AppCompatActivity {
         FillToursTable();
 
         tourList=new ArrayList<>();
-
+        pictures=getResources().getStringArray(R.array.pictures);
         recyclerView=findViewById(R.id.recyclerList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         TourListQuery();
 
-        TourRecyclerAdapter tourAdapter = new TourRecyclerAdapter(tourList);
+        TourRecyclerAdapter tourAdapter = new TourRecyclerAdapter(this,R.layout.tourlist_cardlayout,tourList);
         recyclerView.setAdapter(tourAdapter);
 
     }
@@ -47,8 +48,10 @@ public class ToursACT extends AppCompatActivity {
         db=dbHandler.getReadableDatabase();
         Tour tour;
         Cursor c=db.rawQuery("SELECT * FROM "+dbHandler.TABLE_TOURS,null);
+        int i=0;
 
         while(c.moveToNext()){
+            //tour con id de imagen
             tour=new Tour();
             tour.setTourName(c.getString(1));
             tour.setTourDescription(c.getString(2));
@@ -56,9 +59,12 @@ public class ToursACT extends AppCompatActivity {
             tour.setTourDistance(c.getString(4));
             tour.setTourDuration(c.getString(5));
             tour.setTourNumCheckpoints(c.getString(6));
-            tour.setTourPicture(c.getString(7));
+
+            int pictureID= getResources().getIdentifier(pictures[i],"drawable",this.getPackageName());
+            tour.setPictureId(pictureID);
 
             tourList.add(tour);
+            i++;
         }
     }
 
@@ -70,6 +76,7 @@ public class ToursACT extends AppCompatActivity {
             for (int i = 0; i < tours.length ; i++) {
                 String[] line = tours[i].split(";");
 
+                //tour con nombre de imagen
                 newTour=new Tour(line[0],line[1],line[2],line[3],line[4],line[5],line[6]);
 
                 dbHandler.AddTour(newTour);

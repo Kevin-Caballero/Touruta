@@ -10,6 +10,16 @@ class Tour {
     private String tourNumCheckpoints;
     private String tourPicture;
 
+    public int getPictureId() {
+        return pictureId;
+    }
+
+    public void setPictureId(int pictureId) {
+        this.pictureId = pictureId;
+    }
+
+    private int pictureId;
+
     public Tour(String tourName, String tourDescription, String tourCountry, String tourDistance, String tourDuration, String tourNumCheckpoints, String tourPicture) {
         this.tourName = tourName;
         this.tourDescription = tourDescription;
@@ -19,6 +29,17 @@ class Tour {
         this.tourNumCheckpoints = tourNumCheckpoints;
         this.tourPicture = tourPicture;
     }
+
+    public Tour(String tourName, String tourDescription, String tourCountry, String tourDistance, String tourDuration, String tourNumCheckpoints, int pictureId) {
+        this.tourName = tourName;
+        this.tourDescription = tourDescription;
+        this.tourCountry = tourCountry;
+        this.tourDistance = tourDistance;
+        this.tourDuration = tourDuration;
+        this.tourNumCheckpoints = tourNumCheckpoints;
+        this.pictureId = pictureId;
+    }
+
 
     public Tour(){}
 

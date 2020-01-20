@@ -1,5 +1,6 @@
 package aplicacion.android.kvn.touruta;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,25 +16,42 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapter.TourHolder> {
 
     ArrayList<Tour> tourList = new ArrayList<>();
+    Context parent;
+    int resource;
 
-    public TourRecyclerAdapter(ArrayList<Tour> tourList) {
+
+    public TourRecyclerAdapter(Context parent, int resource, ArrayList<Tour> tourList) {
         this.tourList = tourList;
+        this.parent = parent;
+        this.resource = resource;
     }
 
     @NonNull
     @Override
     public TourHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.tourlist_cardlayout,null,false);
-        return new TourHolder(view);
+
+        ImageView picture;
+        TextView name,ubication,duration,description;
+        Button btnViewMore;
+
+        picture=view.findViewById(R.id.picture);
+        name= view.findViewById(R.id.name);
+        ubication=view.findViewById(R.id.ubication);
+        duration=view.findViewById(R.id.duration);
+        description=view.findViewById(R.id.description);
+        btnViewMore=view.findViewById(R.id.btnViewMore);
+
+        return new TourHolder(view,name,ubication,duration,description,picture);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TourHolder holder, int position) {
-        holder.name.setText(tourList.get(position).getTourName());
-        holder.description.setText(tourList.get(position).getTourDescription());
-        holder.ubication.setText(tourList.get(position).getTourCountry());
-        holder.duration.setText(tourList.get(position).getTourDuration());
-        //holder.picture.setImageResource(tourList.get(position).getTourPicture());
+        holder.setName(tourList.get(position).getTourName());
+        holder.setDuration(tourList.get(position).getTourDescription());
+        holder.setUbication(tourList.get(position).getTourCountry());
+        holder.setDescription(tourList.get(position).getTourDuration());
+        holder.setPicture(tourList.get(position).getPictureId());
     }
 
     @Override
@@ -45,16 +63,35 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
 
         ImageView picture;
         TextView name,ubication,duration,description;
-        Button btnViewMore;
 
-        public TourHolder(@NonNull View itemView) {
+        public TourHolder(@NonNull View itemView, TextView name, TextView ubication, TextView duration, TextView description, ImageView picture) {
             super(itemView);
-            picture=itemView.findViewById(R.id.picture);
-            name= itemView.findViewById(R.id.name);
-            ubication=itemView.findViewById(R.id.ubication);
-            duration=itemView.findViewById(R.id.duration);
-            description=itemView.findViewById(R.id.description);
-            btnViewMore=itemView.findViewById(R.id.btnViewMore);
+
+            this.name=name;
+            this.ubication=ubication;
+            this.duration=duration;
+            this.description=description;
+            this.picture=picture;
+        }
+
+        public void setPicture(int picture) {
+            this.picture.setBackground(parent.getDrawable(picture));
+        }
+
+        public void setName(String name) {
+            this.name.setText(name);
+        }
+
+        public void setUbication(String ubication) {
+            this.ubication.setText(ubication);
+        }
+
+        public void setDuration(String duration) {
+            this.duration.setText(duration);
+        }
+
+        public void setDescription(String description) {
+            this.description.setText(description);
         }
     }
 }

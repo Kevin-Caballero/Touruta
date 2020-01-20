@@ -10,11 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".ToursACT"></activity>
-        <activity android:name=".SignUpACT" />
+        <activity android:name=".SignUpACT"></activity>
         <activity android:name=".LogInACT">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
