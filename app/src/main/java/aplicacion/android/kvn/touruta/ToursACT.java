@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -40,6 +42,26 @@ public class ToursACT extends AppCompatActivity {
         TourListQuery();
 
         TourRecyclerAdapter tourAdapter = new TourRecyclerAdapter(this,R.layout.tourlist_cardlayout,tourList);
+
+        tourAdapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getApplicationContext(), tourList.get(recyclerView.getChildAdapterPosition(view)).getTourName(), Toast.LENGTH_SHORT).show();
+                Tour tour = new Tour();
+                tour.setTourName(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourName());
+                tour.setTourDescription(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourDescription());
+                tour.setTourCountry(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourCountry());
+                tour.setTourDistance(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourDistance());
+                tour.setTourDuration(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourDuration());
+                tour.setTourNumCheckpoints(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourNumCheckpoints());
+                tour.setTourPicture(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourPicture());
+                tour.setPictureId(tourList.get(recyclerView.getChildAdapterPosition(view)).getPictureId());
+
+                Intent TourDetailsIntetn = new Intent(getApplicationContext(),TourDetailsACT.class);
+                startActivity(TourDetailsIntetn);
+            }
+        });
+
         recyclerView.setAdapter(tourAdapter);
 
     }

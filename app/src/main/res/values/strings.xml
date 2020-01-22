@@ -7,4 +7,5 @@
         <item>mar_y_tierra</item>
         <item>dos_lados_frontera</item>
     </string-array>
+    <string name="title_activity_tour_details_act">TourDetailsACT</string>
 </resources>

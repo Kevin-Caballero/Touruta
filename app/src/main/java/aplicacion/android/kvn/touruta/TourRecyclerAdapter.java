@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapter.TourHolder> {
+public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapter.TourHolder> implements View.OnClickListener {
 
     ArrayList<Tour> tourList = new ArrayList<>();
     Context parent;
     int resource;
+    private View.OnClickListener listener;
 
 
     public TourRecyclerAdapter(Context parent, int resource, ArrayList<Tour> tourList) {
@@ -30,6 +31,8 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
     @Override
     public TourHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.tourlist_cardlayout,null,false);
+
+        view.setOnClickListener(this);
 
         ImageView picture;
         TextView name,ubication,duration,description;
@@ -57,6 +60,17 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
     @Override
     public int getItemCount() {
         return tourList.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener=listener;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(listener!=null){
+            listener.onClick(view);
+        }
     }
 
     public class TourHolder extends RecyclerView.ViewHolder {
