@@ -1,6 +1,8 @@
 package aplicacion.android.kvn.touruta;
 
-class Tour {
+import java.io.Serializable;
+
+class Tour implements Serializable {
     private int tourId;
     private String tourName;
     private String tourDescription;
@@ -41,7 +43,8 @@ class Tour {
     }
 
 
-    public Tour(){}
+    public Tour() {
+    }
 
     public int getTourId() {
         return tourId;

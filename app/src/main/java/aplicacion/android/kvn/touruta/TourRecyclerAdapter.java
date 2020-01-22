@@ -30,22 +30,22 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
     @NonNull
     @Override
     public TourHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.tourlist_cardlayout,null,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tourlist_cardlayout, null, false);
 
         view.setOnClickListener(this);
 
         ImageView picture;
-        TextView name,ubication,duration,description;
+        TextView name, ubication, duration, description;
         Button btnViewMore;
 
-        picture=view.findViewById(R.id.picture);
-        name= view.findViewById(R.id.name);
-        ubication=view.findViewById(R.id.ubication);
-        duration=view.findViewById(R.id.duration);
-        description=view.findViewById(R.id.description);
-        btnViewMore=view.findViewById(R.id.btnViewMore);
+        picture = view.findViewById(R.id.picture);
+        name = view.findViewById(R.id.name);
+        ubication = view.findViewById(R.id.ubication);
+        duration = view.findViewById(R.id.duration);
+        description = view.findViewById(R.id.description);
+        btnViewMore = view.findViewById(R.id.btnViewMore);
 
-        return new TourHolder(view,name,ubication,duration,description,picture);
+        return new TourHolder(view, name, ubication, duration, description, picture);
     }
 
     @Override
@@ -62,13 +62,13 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
         return tourList.size();
     }
 
-    public void setOnClickListener(View.OnClickListener listener){
-        this.listener=listener;
+    public void setOnClickListener(View.OnClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
     public void onClick(View view) {
-        if(listener!=null){
+        if (listener != null) {
             listener.onClick(view);
         }
     }
@@ -76,16 +76,16 @@ public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapte
     public class TourHolder extends RecyclerView.ViewHolder {
 
         ImageView picture;
-        TextView name,ubication,duration,description;
+        TextView name, ubication, duration, description;
 
         public TourHolder(@NonNull View itemView, TextView name, TextView ubication, TextView duration, TextView description, ImageView picture) {
             super(itemView);
 
-            this.name=name;
-            this.ubication=ubication;
-            this.duration=duration;
-            this.description=description;
-            this.picture=picture;
+            this.name = name;
+            this.ubication = ubication;
+            this.duration = duration;
+            this.description = description;
+            this.picture = picture;
         }
 
         public void setPicture(int picture) {

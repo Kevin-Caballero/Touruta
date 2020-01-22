@@ -9,12 +9,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class TourDetailsACT extends AppCompatActivity implements View.OnClickListener {
-    Button btn;
-    RecyclerView rv;
+    Button btnVerMas, btnSend;
+    RecyclerView CommentRecyclerView;
+    TextView name, description, duration, distance, checkpoints;
+    ImageView picture;
+    EditText commentBox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +32,50 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        btn=findViewById(R.id.x);
-        rv=findViewById(R.id.recyclerView);
+        btnVerMas = findViewById(R.id.btnVerMas);
+        btnVerMas.setOnClickListener(this);
+        CommentRecyclerView = findViewById(R.id.commentsShortRecyclerView);
+        name = findViewById(R.id.name);
+        description = findViewById(R.id.description);
+        duration = findViewById(R.id.duration);
+        distance = findViewById(R.id.distance);
+        checkpoints = findViewById(R.id.checkpoints);
+        picture = findViewById(R.id.picture);
+        picture.setOnClickListener(this);
+        commentBox = findViewById(R.id.commentBox);
+        btnSend = findViewById(R.id.btnSend);
+        btnSend.setOnClickListener(this);
+        btnSend.setVisibility(View.GONE);
+        commentBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!charSequence.toString().isEmpty()){ //TODO comprobar que no sean espacios
+                    btnSend.setVisibility(View.VISIBLE);
+                }else{
+                    btnSend.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        Bundle receivedBundle = getIntent().getExtras();
+        Tour selectedTour = (Tour) receivedBundle.getSerializable("selectedTour");
+
+        name.setText(selectedTour.getTourName());
+        description.setText(selectedTour.getTourDescription());
+        duration.setText("DURATION: " + selectedTour.getTourDuration());
+        distance.setText("DISTANCE: " + selectedTour.getTourDistance() + "km");
+        checkpoints.setText("CHECKPOINTS: " + selectedTour.getTourNumCheckpoints());
+        picture.setBackground(getDrawable(selectedTour.getPictureId()));
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -37,8 +89,10 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        if(view==btn){
-
+        if (view == btnVerMas) {
+            Toast.makeText(this, "nueva activ", Toast.LENGTH_SHORT).show();
+        } else if (view == btnSend) {
+            Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
         }
     }
 }
