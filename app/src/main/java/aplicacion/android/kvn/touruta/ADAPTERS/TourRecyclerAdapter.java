@@ -1,4 +1,4 @@
-package aplicacion.android.kvn.touruta;
+package aplicacion.android.kvn.touruta.ADAPTERS;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import aplicacion.android.kvn.touruta.OBJECTS.Tour;
+import aplicacion.android.kvn.touruta.R;
 
 public class TourRecyclerAdapter extends RecyclerView.Adapter<TourRecyclerAdapter.TourHolder> implements View.OnClickListener {
 

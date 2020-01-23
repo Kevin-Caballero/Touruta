@@ -1,4 +1,4 @@
-package aplicacion.android.kvn.touruta;
+package aplicacion.android.kvn.touruta.OBJECTS;
 
 public class User {
 

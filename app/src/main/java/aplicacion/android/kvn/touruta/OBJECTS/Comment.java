@@ -1,4 +1,4 @@
-package aplicacion.android.kvn.touruta;
+package aplicacion.android.kvn.touruta.OBJECTS;
 
 public class Comment {
     private int commentId;
@@ -10,14 +10,6 @@ public class Comment {
         this.commentTourId = commentTourId;
         this.commentUserId = commentUserId;
         this.commentContent = commentContent;
-    }
-
-    public void setCommentTourId(int commentTourId) {
-        this.commentTourId = commentTourId;
-    }
-
-    public void setCommentUserId(int commentUserId) {
-        this.commentUserId = commentUserId;
     }
 
     public Comment() {
@@ -41,5 +33,13 @@ public class Comment {
 
     public String getCommentContent() {
         return commentContent;
+    }
+
+    public void setCommentTourId(int commentTourId) {
+        this.commentTourId = commentTourId;
+    }
+
+    public void setCommentUserId(int commentUserId) {
+        this.commentUserId = commentUserId;
     }
 }

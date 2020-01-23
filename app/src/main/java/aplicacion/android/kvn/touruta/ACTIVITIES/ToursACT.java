@@ -1,8 +1,12 @@
-package aplicacion.android.kvn.touruta;
+package aplicacion.android.kvn.touruta.ACTIVITIES;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import aplicacion.android.kvn.touruta.MyDBHandler;
+import aplicacion.android.kvn.touruta.R;
+import aplicacion.android.kvn.touruta.OBJECTS.Tour;
+import aplicacion.android.kvn.touruta.ADAPTERS.TourRecyclerAdapter;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -32,6 +36,7 @@ public class ToursACT extends AppCompatActivity {
         setContentView(R.layout.activity_tours);
 
         dbHandler = new MyDBHandler(this, MyDBHandler.DATABASE_NAME, null, 1);
+
         FillToursTable();
 
         tourList = new ArrayList<>();

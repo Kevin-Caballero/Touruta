@@ -8,14 +8,15 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
+        android:screenOrientation="portrait"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".TourDetailsACT"
+            android:name=".ACTIVITIES.TourDetailsACT"
             android:label="@string/title_activity_tour_details_act"
             android:theme="@style/NoActionBar"></activity>
-        <activity android:name=".ToursACT" />
-        <activity android:name=".SignUpACT" />
-        <activity android:name=".LogInACT">
+        <activity android:name=".ACTIVITIES.ToursACT" />
+        <activity android:name=".ACTIVITIES.SignUpACT" />
+        <activity android:name=".ACTIVITIES.LogInACT">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

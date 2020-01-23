@@ -1,8 +1,8 @@
-package aplicacion.android.kvn.touruta;
+package aplicacion.android.kvn.touruta.OBJECTS;
 
 import java.io.Serializable;
 
-class Tour implements Serializable {
+public class Tour implements Serializable {
     private int tourId;
     private String tourName;
     private String tourDescription;
@@ -11,15 +11,6 @@ class Tour implements Serializable {
     private String tourDuration;
     private String tourNumCheckpoints;
     private String tourPicture;
-
-    public int getPictureId() {
-        return pictureId;
-    }
-
-    public void setPictureId(int pictureId) {
-        this.pictureId = pictureId;
-    }
-
     private int pictureId;
 
     public Tour(String tourName, String tourDescription, String tourCountry, String tourDistance, String tourDuration, String tourNumCheckpoints, String tourPicture) {
@@ -103,5 +94,13 @@ class Tour implements Serializable {
 
     public void setTourPicture(String tourPicture) {
         this.tourPicture = tourPicture;
+    }
+
+    public int getPictureId() {
+        return pictureId;
+    }
+
+    public void setPictureId(int pictureId) {
+        this.pictureId = pictureId;
     }
 }

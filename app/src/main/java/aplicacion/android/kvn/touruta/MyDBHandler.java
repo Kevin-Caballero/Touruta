@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+import aplicacion.android.kvn.touruta.OBJECTS.Comment;
+import aplicacion.android.kvn.touruta.OBJECTS.Tour;
+import aplicacion.android.kvn.touruta.OBJECTS.User;
 
 public class MyDBHandler extends SQLiteOpenHelper {
 
@@ -136,6 +139,25 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         if (db.insert(TABLE_TOURS, null, values) != -1) {
             //TOUR INSERTADO
+            db.close();
+            return 1;
+        } else {
+            db.close();
+            return -1;
+        }
+    }
+
+    public int AddComment(Comment comment){
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_COMMENT_TOUR_ID,comment.getCommentTourId());
+        values.put(COLUMN_COMMENT_USER_ID, comment.getCommentUserId());
+        values.put(COLUMN_COMMENT_CONTENT,comment.getCommentContent());
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        if (db.insert(TABLE_COMMENTS, null, values) != -1) {
+            //COMMENT INSERTADO
             db.close();
             return 1;
         } else {

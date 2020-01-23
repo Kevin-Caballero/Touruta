@@ -1,6 +1,9 @@
-package aplicacion.android.kvn.touruta;
+package aplicacion.android.kvn.touruta.ACTIVITIES;
 
 import androidx.appcompat.app.AppCompatActivity;
+import aplicacion.android.kvn.touruta.MyDBHandler;
+import aplicacion.android.kvn.touruta.R;
+import aplicacion.android.kvn.touruta.OBJECTS.User;
 
 import android.content.Intent;
 import android.os.Bundle;

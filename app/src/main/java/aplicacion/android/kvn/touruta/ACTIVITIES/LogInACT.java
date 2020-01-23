@@ -1,6 +1,9 @@
-package aplicacion.android.kvn.touruta;
+package aplicacion.android.kvn.touruta.ACTIVITIES;
 
 import androidx.appcompat.app.AppCompatActivity;
+import aplicacion.android.kvn.touruta.MyDBHandler;
+import aplicacion.android.kvn.touruta.R;
+import aplicacion.android.kvn.touruta.OBJECTS.User;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,6 +19,7 @@ public class LogInACT extends AppCompatActivity implements View.OnClickListener 
     EditText txtEmailLI, txtPasswordLI;
     SQLiteDatabase db;
     MyDBHandler dbHandler;
+    public static User logedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +57,22 @@ public class LogInACT extends AppCompatActivity implements View.OnClickListener 
         }
 
         db = dbHandler.getReadableDatabase();
-        Cursor c = db.query(MyDBHandler.TABLE_USERS,new String[] {MyDBHandler.COLUMN_USER_PASSWORD},MyDBHandler.COLUMN_USER_EMAIL + "=?",new String[]{insertedEmail},null,null,null);
+        Cursor c = db.query(MyDBHandler.TABLE_USERS,null ,MyDBHandler.COLUMN_USER_EMAIL + "=?",new String[]{insertedEmail},null,null,null);
+
         if(c.moveToFirst()){
-            returnedPassword=c.getString(0);
+            returnedPassword=c.getString(2);
             if(returnedPassword.compareTo(txtPasswordLI.getText().toString())==0){
                 //Toast.makeText(this,"ADELANTE",Toast.LENGTH_SHORT).show();
+
+                logedUser=new User();
+                logedUser.setEmail(c.getString(1));
+                logedUser.setName(c.getString(3));
+                logedUser.setLastName(c.getString(4));
+                logedUser.setNickName(c.getString(5));
+
                 Intent ToursIntent = new Intent(this, ToursACT.class);
                 startActivity(ToursIntent);
             }
         }
     }
-
-
 }

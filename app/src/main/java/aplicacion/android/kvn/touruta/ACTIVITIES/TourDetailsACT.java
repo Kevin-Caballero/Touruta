@@ -1,4 +1,4 @@
-package aplicacion.android.kvn.touruta;
+package aplicacion.android.kvn.touruta.ACTIVITIES;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +10,10 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
+import aplicacion.android.kvn.touruta.OBJECTS.Comment;
+import aplicacion.android.kvn.touruta.MyDBHandler;
+import aplicacion.android.kvn.touruta.R;
+import aplicacion.android.kvn.touruta.OBJECTS.Tour;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,6 +36,8 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
     MyDBHandler dbHandler;
     SQLiteDatabase db;
     List<Comment> commentShortList;
+    Tour selectedTour;
+    Comment newComment;
 
 
     @Override
@@ -43,7 +49,7 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
 
         btnVerMas = findViewById(R.id.btnVerMas);
         btnVerMas.setOnClickListener(this);
-        CommentRecyclerView = findViewById(R.id.commentsShortRecyclerView);
+        //CommentRecyclerView = findViewById(R.id.commentsShortRecyclerView);
         name = findViewById(R.id.name);
         description = findViewById(R.id.description);
         duration = findViewById(R.id.duration);
@@ -63,9 +69,9 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(!charSequence.toString().isEmpty()){ //TODO comprobar que no sean espacios
+                if (!charSequence.toString().isEmpty()) { //TODO comprobar que no sean espacios
                     btnSend.setVisibility(View.VISIBLE);
-                }else{
+                } else {
                     btnSend.setVisibility(View.GONE);
                 }
             }
@@ -78,9 +84,9 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
 
         Bundle receivedBundle = getIntent().getExtras();
 
-        Tour selectedTour = (Tour) receivedBundle.getSerializable("selectedTour");
+        selectedTour = (Tour) receivedBundle.getSerializable("selectedTour");
 
-        commentShortList= new ArrayList<>();
+        commentShortList = new ArrayList<>();
 
         name.setText(selectedTour.getTourName());
         description.setText(selectedTour.getTourDescription());
@@ -106,21 +112,39 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
         if (view == btnVerMas) {
             Toast.makeText(this, "nueva activ", Toast.LENGTH_SHORT).show();
         } else if (view == btnSend) {
-            Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
+            db = dbHandler.getReadableDatabase();
+
+            Cursor cU = db.query(MyDBHandler.TABLE_USERS,null,MyDBHandler.COLUMN_USER_EMAIL+ " = ?",new String[]{LogInACT.logedUser.getEmail()},null,null,null);
+            Cursor cT = db.query(MyDBHandler.TABLE_TOURS,null,MyDBHandler.COLUMN_TOUR_NAME + " = ?",new String[]{selectedTour.getTourName()},null,null,null);
+
+            if(cU.moveToFirst() && cT.moveToFirst()){
+                newComment = new Comment();
+                newComment.setCommentTourId(cT.getInt(0));
+                newComment.setCommentUserId(cU.getInt(0));
+                newComment.setCommentContent(commentBox.getText().toString());
+            }
+
+            if (dbHandler.AddComment(newComment) == 1) {
+                commentBox.setText("");
+                CommentShortListQuery();
+                Toast.makeText(this, "COMMENT ADDED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
-    private void CommentShortListQuery(){
-        db=dbHandler.getReadableDatabase();
+    private void CommentShortListQuery() {
+        db = dbHandler.getReadableDatabase();
         Comment comment;
-        Cursor c = db.rawQuery("SELECT * FROM "+ MyDBHandler.TABLE_COMMENTS +" ORDER BY "+ MyDBHandler.COLUMN_COMMENT_ID + " DESC LIMIT 5 " ,null);
+        Cursor c = db.rawQuery("SELECT * FROM " + MyDBHandler.TABLE_COMMENTS + " ORDER BY " + MyDBHandler.COLUMN_COMMENT_ID, null);
 
-        while(c.moveToFirst()){
+        while (c.moveToNext()) {
             comment = new Comment();
-            //TODO datos reales!!!!!
-            comment.setCommentUserId(1);
-            comment.setCommentTourId(1);
-            comment.setCommentContent("sdas");
+            comment.setCommentTourId(c.getInt(1));
+            comment.setCommentUserId(c.getInt(2));
+            comment.setCommentContent(c.getString(3));
 
             commentShortList.add(comment);
         }
