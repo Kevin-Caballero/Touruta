@@ -66,7 +66,6 @@ public class ToursACT extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(tourAdapter);
-
     }
 
     private void TourListQuery() {

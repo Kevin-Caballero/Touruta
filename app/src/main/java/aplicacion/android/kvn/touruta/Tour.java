@@ -42,7 +42,6 @@ class Tour implements Serializable {
         this.pictureId = pictureId;
     }
 
-
     public Tour() {
     }
 

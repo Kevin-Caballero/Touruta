@@ -1,5 +1,7 @@
 package aplicacion.android.kvn.touruta;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,12 +20,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TourDetailsACT extends AppCompatActivity implements View.OnClickListener {
     Button btnVerMas, btnSend;
     RecyclerView CommentRecyclerView;
     TextView name, description, duration, distance, checkpoints;
     ImageView picture;
     EditText commentBox;
+    MyDBHandler dbHandler;
+    SQLiteDatabase db;
+    List<Comment> commentShortList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +77,10 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
         });
 
         Bundle receivedBundle = getIntent().getExtras();
+
         Tour selectedTour = (Tour) receivedBundle.getSerializable("selectedTour");
+
+        commentShortList= new ArrayList<>();
 
         name.setText(selectedTour.getTourName());
         description.setText(selectedTour.getTourDescription());
@@ -76,6 +88,8 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
         distance.setText("DISTANCE: " + selectedTour.getTourDistance() + "km");
         checkpoints.setText("CHECKPOINTS: " + selectedTour.getTourNumCheckpoints());
         picture.setBackground(getDrawable(selectedTour.getPictureId()));
+
+        dbHandler = new MyDBHandler(this, MyDBHandler.DATABASE_NAME, null, 1);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +107,22 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
             Toast.makeText(this, "nueva activ", Toast.LENGTH_SHORT).show();
         } else if (view == btnSend) {
             Toast.makeText(this, "HOLA", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void CommentShortListQuery(){
+        db=dbHandler.getReadableDatabase();
+        Comment comment;
+        Cursor c = db.rawQuery("SELECT * FROM "+ MyDBHandler.TABLE_COMMENTS +" LIMIT 5",null);
+
+        while(c.moveToFirst()){
+            comment = new Comment();
+            //TODO datos reales!!!!!
+            comment.setCommentUserId(1);
+            comment.setCommentTourId(1);
+            comment.setCommentContent("sdas");
+
+            commentShortList.add(comment);
         }
     }
 }
