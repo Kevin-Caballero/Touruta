@@ -113,7 +113,7 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
     private void CommentShortListQuery(){
         db=dbHandler.getReadableDatabase();
         Comment comment;
-        Cursor c = db.rawQuery("SELECT * FROM "+ MyDBHandler.TABLE_COMMENTS +" LIMIT 5",null);
+        Cursor c = db.rawQuery("SELECT * FROM "+ MyDBHandler.TABLE_COMMENTS +" ORDER BY "+ MyDBHandler.COLUMN_COMMENT_ID + " DESC LIMIT 5 " ,null);
 
         while(c.moveToFirst()){
             comment = new Comment();
