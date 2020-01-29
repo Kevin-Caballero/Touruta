@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import aplicacion.android.kvn.touruta.OBJECTS.Comment;
 import aplicacion.android.kvn.touruta.MyDBHandler;
@@ -49,7 +50,8 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
 
         btnVerMas = findViewById(R.id.btnVerMas);
         btnVerMas.setOnClickListener(this);
-        //CommentRecyclerView = findViewById(R.id.commentsShortRecyclerView);
+        CommentRecyclerView = findViewById(R.id.commentsShortRecyclerView);
+        CommentRecyclerView.setLayoutManager( new LinearLayoutManager(this));
         name = findViewById(R.id.name);
         description = findViewById(R.id.description);
         duration = findViewById(R.id.duration);
@@ -63,9 +65,7 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
         btnSend.setVisibility(View.GONE);
         commentBox.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {  }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -77,9 +77,7 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
+            public void afterTextChanged(Editable editable) {  }
         });
 
         Bundle receivedBundle = getIntent().getExtras();
