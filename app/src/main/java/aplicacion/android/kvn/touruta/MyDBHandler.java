@@ -30,7 +30,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_USER_PASSWORD = "password";
     public static final String COLUMN_USER_NAME = "name";
     public static final String COLUMN_USER_LAST_NAME = "lastName";
-    public static final String COLUMN_USER_NICK_NAME = "nicNname";
+    public static final String COLUMN_USER_NICK_NAME = "nickName";
     public static final String COLUMN_USER_PICTURE = "picture";
 
     //TOURS COLUMNS

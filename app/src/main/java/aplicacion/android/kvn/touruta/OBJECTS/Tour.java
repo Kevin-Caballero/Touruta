@@ -13,6 +13,10 @@ public class Tour implements Serializable {
     private String tourPicture;
     private int pictureId;
 
+    public void setTourId(int tourId) {
+        this.tourId = tourId;
+    }
+
     public Tour(String tourName, String tourDescription, String tourCountry, String tourDistance, String tourDuration, String tourNumCheckpoints, String tourPicture) {
         this.tourName = tourName;
         this.tourDescription = tourDescription;

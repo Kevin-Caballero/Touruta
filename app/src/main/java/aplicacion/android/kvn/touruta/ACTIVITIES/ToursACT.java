@@ -52,15 +52,7 @@ public class ToursACT extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Toast.makeText(getApplicationContext(), tourList.get(recyclerView.getChildAdapterPosition(view)).getTourName(), Toast.LENGTH_SHORT).show();
-                Tour selectedTour = new Tour();
-                selectedTour.setTourName(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourName());
-                selectedTour.setTourDescription(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourDescription());
-                selectedTour.setTourCountry(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourCountry());
-                selectedTour.setTourDistance(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourDistance());
-                selectedTour.setTourDuration(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourDuration());
-                selectedTour.setTourNumCheckpoints(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourNumCheckpoints());
-                selectedTour.setTourPicture(tourList.get(recyclerView.getChildAdapterPosition(view)).getTourPicture());
-                selectedTour.setPictureId(tourList.get(recyclerView.getChildAdapterPosition(view)).getPictureId());
+                Tour selectedTour = tourList.get(recyclerView.getChildAdapterPosition(view));
 
                 Intent TourDetailsIntetn = new Intent(getApplicationContext(), TourDetailsACT.class);
                 Bundle bundle = new Bundle();
@@ -82,6 +74,7 @@ public class ToursACT extends AppCompatActivity {
         while (c.moveToNext()) {
             //tour con id de imagen
             tour = new Tour();
+            tour.setTourId(c.getInt(0));
             tour.setTourName(c.getString(1));
             tour.setTourDescription(c.getString(2));
             tour.setTourCountry(c.getString(3));

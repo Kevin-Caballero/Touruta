@@ -34,7 +34,10 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
     @NonNull
     @Override
     public CommentHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.commentlist_cardlayout,null);
+        View view = LayoutInflater.from(this.parent).inflate(R.layout.commentlist_cardlayout,null);
+
+        dbHandler = new MyDBHandler(parent.getContext(), MyDBHandler.DATABASE_NAME, null, 1);
+        db=dbHandler.getReadableDatabase();
 
         TextView commentUser,commentContent;
 
@@ -46,14 +49,16 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
 
     @Override
     public void onBindViewHolder(@NonNull CommentHolder holder, int position) {
-        dbHandler = new MyDBHandler(parent, MyDBHandler.DATABASE_NAME, null, 1);
-        db=dbHandler.getReadableDatabase();
 
-        Cursor c = db.rawQuery("SELECT " + MyDBHandler.COLUMN_USER_NICK_NAME + " FROM " + MyDBHandler.TABLE_USERS + " WHERE " +  MyDBHandler.COLUMN_USER_ID + " =? " +Integer.toString(commentList.get(position).getCommentUserId()),null );
 
-        String userNickname = c.getString(0);
-        holder.setCommentUser(userNickname);
-        holder.setCommentContent(commentList.get(position).getCommentContent());
+        Cursor c= db.query(MyDBHandler.TABLE_USERS,new String[]{MyDBHandler.COLUMN_USER_NICK_NAME},MyDBHandler.COLUMN_USER_ID + " = ? ",new String[] {Integer.toString(commentList.get(position).getCommentUserId())},null,null,null);
+        //Cursor c = db.rawQuery("SELECT " + MyDBHandler.COLUMN_USER_NICK_NAME + " FROM " + MyDBHandler.TABLE_USERS + " WHERE " +  MyDBHandler.COLUMN_USER_ID + " =? " + commentList.get(position).getCommentUserId(),null );
+        if(c.moveToFirst()){
+            String userNickname = c.getString(0);
+            holder.setCommentUser(userNickname);
+            holder.setCommentContent(commentList.get(position).getCommentContent());
+        }
+
     }
 
     @Override

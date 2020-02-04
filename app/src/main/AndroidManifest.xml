@@ -7,13 +7,14 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
-        android:supportsRtl="true"
         android:screenOrientation="portrait"
+        android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".ACTIVITIES.AllCommentsACT"></activity>
         <activity
             android:name=".ACTIVITIES.TourDetailsACT"
             android:label="@string/title_activity_tour_details_act"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity android:name=".ACTIVITIES.ToursACT" />
         <activity android:name=".ACTIVITIES.SignUpACT" />
         <activity android:name=".ACTIVITIES.LogInACT">
