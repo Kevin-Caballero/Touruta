@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        tools:context=".ACTIVITIES.TourPlayerACT" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@android:drawable/ic_media_previous" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+            android:background="@android:drawable/ic_media_play"
+            android:gravity="center_horizontal|fill" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@android:drawable/ic_media_next" />
+    </LinearLayout>
+
+</LinearLayout>

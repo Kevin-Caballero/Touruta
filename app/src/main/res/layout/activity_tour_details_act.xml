@@ -23,8 +23,7 @@
     <include
         android:id="@+id/include"
         layout="@layout/content_tour_details_act"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="center" />
+        app:layout_anchorGravity="center|fill" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

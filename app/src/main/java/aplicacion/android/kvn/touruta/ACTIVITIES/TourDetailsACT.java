@@ -112,8 +112,8 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent TourPlayerIntent = new Intent(view.getContext(),TourPlayerACT.class);
+                startActivity(TourPlayerIntent);
             }
         });
     }

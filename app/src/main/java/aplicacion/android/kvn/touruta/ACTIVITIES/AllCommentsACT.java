@@ -40,7 +40,7 @@ public class AllCommentsACT extends AppCompatActivity {
         db = dbHandler.getReadableDatabase();
         Comment comment;
 
-        Cursor cC = db.rawQuery("SELECT *  FROM " + MyDBHandler.TABLE_COMMENTS + " WHERE " + MyDBHandler.COLUMN_COMMENT_TOUR_ID + " = ?", new String[]{Integer.toString(TourDetailsACT.selectedTour.getTourId())});
+        Cursor cC = db.rawQuery("SELECT *  FROM " + MyDBHandler.TABLE_COMMENTS + " WHERE " + MyDBHandler.COLUMN_COMMENT_TOUR_ID + " = ?"  + " ORDER BY " + MyDBHandler.COLUMN_COMMENT_ID + " DESC ", new String[]{Integer.toString(TourDetailsACT.selectedTour.getTourId())});
         if (cC.moveToFirst()) {
             Toast.makeText(this, cC.getString(0) + " " + cC.getString(3), Toast.LENGTH_SHORT).show();
             do {
