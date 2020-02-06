@@ -9,4 +9,5 @@
     </string-array>
     <string name="title_activity_tour_details_act">TourDetailsACT</string>
     <string name="title_activity_tour_player_act">Map</string>
+    <string name="title_activity_prueba">Map</string>
 </resources>

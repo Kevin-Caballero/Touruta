@@ -32,7 +32,7 @@
 
         <activity
             android:name=".ACTIVITIES.TourPlayerACT"
-            android:label="@string/title_activity_tour_player_act"></activity>
+            android:label="@string/title_activity_tour_player_act" />
         <activity android:name=".ACTIVITIES.AllCommentsACT" />
         <activity
             android:name=".ACTIVITIES.TourDetailsACT"
@@ -48,5 +48,5 @@
             </intent-filter>
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>
