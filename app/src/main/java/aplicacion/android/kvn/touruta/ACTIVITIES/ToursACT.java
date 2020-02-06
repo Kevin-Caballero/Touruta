@@ -103,7 +103,7 @@ public class ToursACT extends AppCompatActivity {
 
                 dbHandler.AddTour(newTour);
             }
-            Toast.makeText(this, "REG=" + tours.length, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "REG=" + tours.length, Toast.LENGTH_SHORT).show();
             db.close();
         }
     }

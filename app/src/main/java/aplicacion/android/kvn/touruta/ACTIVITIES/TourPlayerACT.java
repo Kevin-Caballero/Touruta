@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -22,8 +24,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.BitSet;
 
 public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallback {
     double lat,lon;
@@ -32,6 +37,11 @@ public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallbac
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*Al crearse la actividad lo primero es comprobar los permisos para acceder a la ubicacion.
+        * Si no tiene los permisos aceptados se solicitaran.
+        * Luego se comprueba el acceso a los servicios de google,
+        * en caso afirmativo se carga el mapa de lo contrario mostrara un error.*/
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_player_act);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -53,8 +63,6 @@ public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallbac
             Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status,(Activity)getApplicationContext(),10);
             dialog.show();
         }
-
-
     }
 
 
@@ -71,20 +79,19 @@ public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        mMap.setMyLocationEnabled(true); //habilitar ubicacion actual dentro del mapa
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         UiSettings uiSettings=mMap.getUiSettings();
         uiSettings.setZoomControlsEnabled(true);
+        uiSettings.setAllGesturesEnabled(true);
 
         LocationManager locationManager= (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
 
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                // Add a marker in Sydney and move the camera
                 lat=location.getLatitude();
                 lon=location.getLongitude();
-               //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,locationListener);
             }
 
             @Override
@@ -104,9 +111,11 @@ public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallbac
 
         };
 
+        LatLng marcador = new LatLng(43.3125271,-1.8986133);
         LatLng you = new LatLng(lat, lon);
-        mMap.addMarker(new MarkerOptions().position(you).title("you"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(you));
 
+        mMap.addMarker(new MarkerOptions().position(marcador).title("marcador"));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marcador,16));
     }
 }

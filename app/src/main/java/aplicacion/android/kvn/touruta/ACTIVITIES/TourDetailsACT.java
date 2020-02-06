@@ -158,7 +158,7 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
 
         Cursor cC=db.rawQuery("SELECT *  FROM "+ MyDBHandler.TABLE_COMMENTS  + " WHERE " + MyDBHandler.COLUMN_COMMENT_TOUR_ID + " = ?" + " ORDER BY " + MyDBHandler.COLUMN_COMMENT_ID + " DESC " + " LIMIT 5",new String[]{Integer.toString(selectedTour.getTourId())});
         if(cC.moveToFirst()){
-            Toast.makeText(this, cC.getString(0)+ " " + cC.getString(3), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, cC.getString(0)+ " " + cC.getString(3), Toast.LENGTH_SHORT).show();
             do {
                 comment = new Comment();
                 comment.setCommentTourId(cC.getInt(1));
