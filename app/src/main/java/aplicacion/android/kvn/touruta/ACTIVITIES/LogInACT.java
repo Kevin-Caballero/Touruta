@@ -42,11 +42,17 @@ public class LogInACT extends AppCompatActivity implements View.OnClickListener 
         else if(v== btnSignupLI){Signup();}
     }
 
+    /**Funcion para lanzar la actividad de registro*/
     private void Signup() {
         Intent SignUpIntent = new Intent(this, SignUpACT.class);
         startActivity(SignUpIntent);
     }
 
+    /**Funcion mediante la cual se validan los datos de acceso.
+     * En primer lugar se obtiene el contenido de la caja de texto del email pa realizar una
+     * consulta contra la base de datos que nos traiga la contraseña del usuario con ese email.
+     * Si el contenido de la caja de texto de la contraseña coincide con lo que nos ha devuelto
+     * la consulta, el usuario estara logeado correctamente.*/
     private void Login() {
         String insertedEmail="";
         String returnedPassword;

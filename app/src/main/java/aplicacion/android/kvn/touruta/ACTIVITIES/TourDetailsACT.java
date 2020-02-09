@@ -105,7 +105,7 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
         CommentRecyclerAdapter commentAdapter = new CommentRecyclerAdapter(this, R.layout.commentlist_cardlayout, commentShortList);
         CommentRecyclerView.setAdapter(commentAdapter);
 
-
+        /**Al hacer click sobre el boton flotante lanzaremos el activity del mapa y el reproductor*/
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +116,12 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
         });
     }
 
+    /**Al hace click en el boton de ver mas se lanzara otro activity donde se mostraran todos lo comentarios
+     * Al hacer click sobre el boton de enviar comentario, nos traemos de la base de datos el usuario que
+     * coincida con el usuario logeado, para posteriormente sacar el ID. Tambien nos traemos el tour de la
+     * base de datos cuyo nombre sea el del tour seleccionado, para posteriormente sacar su ID.
+     * Una vez tenemos estos datos ya podemos crear un comentario y añadirlo a la base de datos mediante
+     * instancia de la clase comment*/
     @Override
     public void onClick(View view) {
         if (view == btnVerMas) {
@@ -149,6 +155,9 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
         }
     }
 
+    /**Funcion para llenar un arraylist de comments para mas tarde paraselo a un adaptador
+     * Lanzamos una consulta contra la base de datos que nos devolvera todos los comments en un cursor.
+     * Recorremos dicho cursos creando instancias de la clase comment para asi añadirlos al arraylist.*/
     private void CommentShortListQuery() {
         commentShortList=new ArrayList<>();
         db = dbHandler.getReadableDatabase();

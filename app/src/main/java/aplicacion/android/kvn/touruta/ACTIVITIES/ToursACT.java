@@ -71,6 +71,9 @@ public class ToursACT extends AppCompatActivity {
         recyclerView.setAdapter(tourAdapter);
     }
 
+    /**Funcion que llena un arraylist de tours para posteriormente pasarselo a un adaptador.
+     * Lanzamos una consulta contra la base de datos que nos devolvera todos los tours en un cursor.
+     * Recorremos dicho cursos creando instancias de la clase tour para asi añadirlos al arraylist.*/
     private void TourListQuery() {
         db = dbHandler.getReadableDatabase();
         Tour tour;
@@ -96,6 +99,12 @@ public class ToursACT extends AppCompatActivity {
         }
     }
 
+    /**Si la tabla de tours esta vacia, llenamos al array tours con el array de strigns
+     * que nos devuelve la funcion ReadArchive.
+     * Recorremos dicho array y volcamos sobre el array de strings line el contenido de
+     * cada linea de cp pero separado por ";".
+     * Finalmente recorremos line y creamos instancias de la clase tour con los valores obtenidos
+     * y añadimos el contenido de dichos objetos a la base de datos*/
     private void FillToursTable() {
         if (RecordsQuantity(MyDBHandler.TABLE_TOURS) == 0) {
             String[] tours = ReadArchive(R.raw.tours);
@@ -113,6 +122,13 @@ public class ToursACT extends AppCompatActivity {
             db.close();
         }
     }
+
+    /**Si la tabla de checkpoints esta vacia, llenamos al array cp con el array de  strigns
+     * que nos devuelve la funcion ReadArchive.
+     * Recorremos dicho array y volcamos sobre el array de strings line el contenido de
+     * cada linea de cp pero separado por ";".
+     * Finalmente recorremos line y creamos instancias de la clase Checkpoint con los valores obtenidos
+     * y añadimos el contenido de dichos objetos a la base de datos*/
     private void FillCheckpointsTable() {
         if (RecordsQuantity(MyDBHandler.TABLE_CHECKPOINTS) == 0) {
             String[] cp = ReadArchive(R.raw.checkpoints);
@@ -137,6 +153,10 @@ public class ToursACT extends AppCompatActivity {
         return qnt;
     }
 
+    /**Funcion que nos devuelve un array de strings con el contenido de un txt.
+     * Primero volvamos sobre un stream de entrada el contenido del archivo.
+     * Mientras haya contenido lo vamos pasando a un array de bytes de salida.
+     * Finalmente devolvemos dicho array parseado a String y separado por saltos de linea*/
     private String[] ReadArchive(int ref) {
         InputStream inputStream = getResources().openRawResource(ref);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

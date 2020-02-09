@@ -39,6 +39,7 @@ public class AllCommentsACT extends AppCompatActivity {
 
     }
 
+    /**Funcino que llena un arraylist para pasarselo a un adapter*/
     private void CommentLongListQuery() {
         commentLongList = new ArrayList<>();
         db = dbHandler.getReadableDatabase();

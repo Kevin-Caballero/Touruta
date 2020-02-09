@@ -44,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener,Runnable {
+public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener, Runnable {
     private GoogleMap mMap;
     private Marker marker;
     double lat = 0.0;
@@ -53,11 +53,11 @@ public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallbac
     MyDBHandler dbHandler;
     SQLiteDatabase db;
     ArrayList<Checkpoint> checkpoints;
-    Button btnPlayPause,btnPrevious,btnNext;
+    Button btnPlayPause, btnPrevious, btnNext;
     SeekBar seekBar;
     //TAMAÑO DEL ARRAY = NUM CHECKPOINTS (PONGO TRES CANCIONES COMO EJEMPLO)
-    MediaPlayer[] explanations=new MediaPlayer[3];
-    int pos=0;
+    MediaPlayer[] explanations = new MediaPlayer[3];
+    int pos = 0;
     Handler handler;
     Thread thread;
 
@@ -75,16 +75,16 @@ public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallbac
         CheckpointListQuery();
 
         //TODO AUTOMATIZAR LA REPRODUCCION DE AUDIOS AL ACERCARSE A LOS CHECKPOINTS
-        seekBar=findViewById(R.id.seekBar);
-        btnPlayPause=findViewById(R.id.btnPlayPause);
+        seekBar = findViewById(R.id.seekBar);
+        btnPlayPause = findViewById(R.id.btnPlayPause);
         btnPlayPause.setOnClickListener(this);
-        btnPrevious=findViewById(R.id.btnPrevious);
+        btnPrevious = findViewById(R.id.btnPrevious);
         btnPrevious.setOnClickListener(this);
-        btnNext=findViewById(R.id.btnNext);
+        btnNext = findViewById(R.id.btnNext);
         btnNext.setOnClickListener(this);
-        explanations[0]=MediaPlayer.create(this,R.raw.ilomilo);
-        explanations[1]=MediaPlayer.create(this,R.raw.badguy);
-        explanations[2]=MediaPlayer.create(this,R.raw.buryafriend);
+        explanations[0] = MediaPlayer.create(this, R.raw.ilomilo);
+        explanations[1] = MediaPlayer.create(this, R.raw.badguy);
+        explanations[2] = MediaPlayer.create(this, R.raw.buryafriend);
 
         handler = new Handler() {
             @Override
@@ -103,7 +103,8 @@ public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallbac
      * Funcion para llenar un array list con los checkpoints de cada tour.
      * El primer paso es realizar la consulta que nos devolvera la informacion sobre un cursor.
      * Recorreremos dicho cursor mientras creamos objetos de tipo checkpoint con los datos de linea
-     * para mas adelante llenar el arraylist de checkpoints*/
+     * para mas adelante llenar el arraylist de checkpoints
+     */
     private void CheckpointListQuery() {
         db = dbHandler.getReadableDatabase();
         Cursor c = db.query(MyDBHandler.TABLE_CHECKPOINTS, null, MyDBHandler.COLUMN_CHECKPOINT_TOUR_ID + " = ? ", new String[]{Integer.toString(TourDetailsACT.selectedTour.getTourId())}, null, null, null);
@@ -193,7 +194,7 @@ public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallbac
      * Este segmento de codigo nos permite agregar un marcador al mapa estableciendo una posicion
      * un titulo para dicho marcador y se le puede establecer un icono para mostrar.
      */
-    private void AddCheckpointMarkers(){
+    private void AddCheckpointMarkers() {
         for (int i = 0; i < checkpoints.size(); i++) {
 
             LatLng cp = new LatLng(checkpoints.get(i).getLat(), checkpoints.get(i).getLon());
@@ -279,66 +280,70 @@ public class TourPlayerACT extends FragmentActivity implements OnMapReadyCallbac
     }
 
 
-    /**REPRODUCTOR*/
+    /**
+     * REPRODUCTOR
+     */
     @Override
     public void onClick(View view) {
-        if(view==btnPlayPause){
+        if (view == btnPlayPause) {
             PlayPause();
-        }else if(view==btnPrevious){
+        } else if (view == btnPrevious) {
             Previous();
-        }else if(view==btnNext){
+        } else if (view == btnNext) {
             Next();
-        }
-    }
-
-    private void PlayPause(){
-
-        if(explanations[pos].isPlaying()){
-            explanations[pos].pause();
-            btnPlayPause.setBackgroundResource(R.drawable.play);
-        }else{
-            explanations[pos].start();
-            btnPlayPause.setBackgroundResource(R.drawable.pause);
         }
         thread = new Thread(this);
         thread.start();
     }
 
-    /**Si el indice es menor que la longitud del array y ademas se esta reproduciondo una pista,
+    private void PlayPause() {
+
+        if (explanations[pos].isPlaying()) {
+            explanations[pos].pause();
+            btnPlayPause.setBackgroundResource(R.drawable.play);
+        } else {
+            explanations[pos].start();
+            btnPlayPause.setBackgroundResource(R.drawable.pause);
+        }
+    }
+
+    /**
+     * Si el indice es menor que la longitud del array y ademas se esta reproduciondo una pista,
      * debemos parar la pista actual, incrementar en uno el indice e inicial la nueva pista.
-     * En caso de que no hubiese nada reproduciendose simplemete actualizamos el indice*/
-    private void Next(){
-        if(pos < explanations.length-1){
-            if(explanations[pos].isPlaying()){
+     * En caso de que no hubiese nada reproduciendose simplemete actualizamos el indice
+     */
+    private void Next() {
+        if (pos < explanations.length - 1) {
+            if (explanations[pos].isPlaying()) {
                 explanations[pos].stop();
-                explanations[0]=MediaPlayer.create(this,R.raw.ilomilo);
-                explanations[1]=MediaPlayer.create(this,R.raw.badguy);
-                explanations[2]=MediaPlayer.create(this,R.raw.buryafriend);
-                pos++;
-                explanations[pos].start();
-            }else{
-                pos++;
             }
-        }else{
-            pos=0;
+            pos++;
+            explanations[pos].start();
+        } else if (pos == explanations.length - 1) {
+            explanations[explanations.length - 1].stop();
+            pos = 0;
+            btnPlayPause.setBackgroundResource(R.drawable.play);
+            btnPlayPause.setEnabled(false);
+            btnNext.setEnabled(false);
+            btnPrevious.setEnabled(false);
             Toast.makeText(this, "TOUR FINALIZADO", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void Previous(){
-        if(pos >= 1){
-            if(explanations[pos].isPlaying()){
+    private void Previous() {
+        if (pos >= 1) {
+            if (explanations[pos].isPlaying()) {
                 explanations[pos].stop();
-                explanations[0]=MediaPlayer.create(this,R.raw.ilomilo);
-                explanations[1]=MediaPlayer.create(this,R.raw.badguy);
-                explanations[2]=MediaPlayer.create(this,R.raw.buryafriend);
+                explanations[0] = MediaPlayer.create(this, R.raw.ilomilo);
+                explanations[1] = MediaPlayer.create(this, R.raw.badguy);
+                explanations[2] = MediaPlayer.create(this, R.raw.buryafriend);
                 pos--;
                 explanations[pos].start();
-            }else{
+            } else {
                 pos--;
             }
-        }else{
-            pos=explanations.length-1;
+        } else {
+            pos = explanations.length - 1;
             Toast.makeText(this, "TOUR FINALIZADO", Toast.LENGTH_SHORT).show();
         }
     }

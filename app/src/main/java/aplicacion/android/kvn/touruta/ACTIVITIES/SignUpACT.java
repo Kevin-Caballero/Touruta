@@ -41,6 +41,8 @@ public class SignUpACT extends AppCompatActivity implements View.OnClickListener
 
     }
 
+    /**Al hacer click en el boton de registro se validan tanto contraseña como email y se crea un
+     * objeto de la clase User para añadir su contenido a la base de datos*/
     @Override
     public void onClick(View view) {
         String email=null,password=null,name,lastname,nickname;
@@ -79,9 +81,9 @@ public class SignUpACT extends AppCompatActivity implements View.OnClickListener
         }
 
         CleanForm();
-
     }
 
+    /**Funcion para limpiar el formulario*/
     private void CleanForm() {
         txtEmailSU.setText("");
         txtPasswordSU.setText("");
@@ -91,12 +93,17 @@ public class SignUpACT extends AppCompatActivity implements View.OnClickListener
         txtNicknameSU.setText("");
     }
 
+    /**Validacion de contraseña.
+     * Primeramente se validara que tanto el valor de la primera caja de contraseña como el segundo
+     * tengan la misma longitud, si eso se cumple se valida si ambas contraseñas son iguales
+     * y retorna un booleano en base a dicha comprobacion*/
     private boolean PasswordValidation(String pw1, String pw2) {
         if(pw1.length()>=8 && pw2.length()>=8)
             return pw1.equals(pw2);
         return false;
     }
 
+    /**Validacion del campo email gracias a la clase Pattern que devolvera cierto si se cumple el patron*/
     private boolean EmailValidation(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
