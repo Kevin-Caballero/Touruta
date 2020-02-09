@@ -6,50 +6,73 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        tools:context=".ACTIVITIES.TourPlayerACT" />
+        android:layout_height="match_parent">
 
-    <SeekBar
-        android:id="@+id/seekBar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="16dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp">
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                tools:context=".ACTIVITIES.TourPlayerACT" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@android:drawable/ic_media_previous" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/comment_shape"
+                android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="80dp"
-            android:layout_marginEnd="80dp"
-            android:background="@android:drawable/ic_media_play"
-            android:gravity="center_horizontal|fill" />
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:max="100" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:background="@android:drawable/ic_media_next" />
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp">
+
+                    <Button
+                        android:id="@+id/btnPrevious"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/previous" />
+
+                    <Button
+                        android:id="@+id/btnPlayPause"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="80dp"
+                        android:layout_marginEnd="80dp"
+                        android:background="@drawable/play"
+                        android:gravity="center_horizontal|fill" />
+
+                    <Button
+                        android:id="@+id/btnNext"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/next" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

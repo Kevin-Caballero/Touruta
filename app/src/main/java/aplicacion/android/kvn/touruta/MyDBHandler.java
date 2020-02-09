@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+import aplicacion.android.kvn.touruta.OBJECTS.Checkpoint;
 import aplicacion.android.kvn.touruta.OBJECTS.Comment;
 import aplicacion.android.kvn.touruta.OBJECTS.Tour;
 import aplicacion.android.kvn.touruta.OBJECTS.User;
@@ -23,6 +24,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String TABLE_USERS = "users";
     public static final String TABLE_TOURS = "tours";
     public static final String TABLE_COMMENTS = "comments";
+    public static final String TABLE_CHECKPOINTS = "checkpoints";
 
     //USER COLUMS
     public static final String COLUMN_USER_ID = "userId";
@@ -49,6 +51,13 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String COLUMN_COMMENT_USER_ID = "userId";
     public static final String COLUMN_COMMENT_CONTENT = "content";
 
+    //CHECKPOINTS COLUMNS
+    public static final String COLUMN_CHECKPOINT_ID = "checkpointId";
+    public static final String COLUMN_CHECKPOINT_TOUR_ID ="tourId";
+    public static final String COLUMN_CHECKPOINT_LATITUDE="latitude";
+    public static final String COLUMN_CHECKPOINT_LONGITUDE="longitude";
+    public static final String COLUMN_CHECKPOINT_NAME="name";
+
     Context context;
 
     public MyDBHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -66,6 +75,16 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 + COLUMN_COMMENT_CONTENT + " TEXT"
                 + " ); ";
         db.execSQL(creationQueryComments);
+
+        String creationQueryCheckpoints = " CREATE TABLE " + TABLE_CHECKPOINTS
+                + " ( "
+                + COLUMN_CHECKPOINT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_CHECKPOINT_TOUR_ID + " INTEGER, "
+                + COLUMN_CHECKPOINT_LATITUDE + " REAL, "
+                + COLUMN_CHECKPOINT_LONGITUDE + " REAL,"
+                + COLUMN_CHECKPOINT_NAME + " TEXT"
+                + " ); ";
+        db.execSQL(creationQueryCheckpoints);
 
 
         String creationQueryUsers = " CREATE TABLE " + TABLE_USERS
@@ -92,7 +111,8 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 + COLUMN_TOUR_DURATION + " TEXT, "
                 + COLUMN_TOUR_NUM_CHECKPOINTS + " TEXT, "
                 + COLUMN_TOUR_PICTURE + " TEXT, "
-                + "FOREIGN KEY (" + COLUMN_TOUR_ID + ") REFERENCES " + TABLE_COMMENTS + "(" + COLUMN_COMMENT_TOUR_ID + ") "
+                + "FOREIGN KEY (" + COLUMN_TOUR_ID + ") REFERENCES " + TABLE_COMMENTS + "(" + COLUMN_COMMENT_TOUR_ID + "), "
+                + "FOREIGN KEY (" + COLUMN_TOUR_ID + ") REFERENCES " + TABLE_CHECKPOINTS + "(" + COLUMN_CHECKPOINT_TOUR_ID + ") "
                 + " ); ";
         db.execSQL(creationQueryTours);
     }
@@ -158,6 +178,26 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         if (db.insert(TABLE_COMMENTS, null, values) != -1) {
             //COMMENT INSERTADO
+            db.close();
+            return 1;
+        } else {
+            db.close();
+            return -1;
+        }
+    }
+
+    public int AddCheckpoint(Checkpoint checkpoint) {
+        ContentValues values = new ContentValues();
+
+        values.put(COLUMN_CHECKPOINT_TOUR_ID,checkpoint.getCheckpointTourId());
+        values.put(COLUMN_CHECKPOINT_LATITUDE, checkpoint.getLat());
+        values.put(COLUMN_CHECKPOINT_LONGITUDE,checkpoint.getLon());
+        values.put(COLUMN_CHECKPOINT_NAME,checkpoint.getName());
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        if (db.insert(TABLE_CHECKPOINTS, null, values) != -1) {
+            //CHECKPOINT INSERTADO
             db.close();
             return 1;
         } else {

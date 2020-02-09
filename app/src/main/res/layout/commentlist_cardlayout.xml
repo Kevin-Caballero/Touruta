@@ -5,15 +5,15 @@
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="15dp"
     card_view:cardElevation="1dp"
-    card_view:cardPreventCornerOverlap="false"
     card_view:cardUseCompatPadding="true"
-    card_view:layout_constraintWidth_max="wrap">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/button_rounded_border"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:minWidth="1000dp">
 
         <TextView
             android:id="@+id/txtCommentUser"

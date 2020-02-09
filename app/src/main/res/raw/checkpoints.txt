@@ -1,0 +1,5 @@
+1;43.324126;-1.985780;Gandarias;1;43.323359;-1.986496;Mejillonera;1;43.323925;-1.986479;Atari;1;43.322693;-1.985672;Paco Bueno;1;43.323513;-1.983893;Borda Berri;1;43.324620;-1.984827;La viña;1;43.322920;-1.984701;Juantxo taberna
+2;43.322988;-1.982926;Plaza Sarriegi;2;43.320644;-1.984926;Alderdi Eder;2;43.322245;-1.980579;Plaza Okendo;2;43.321093;-1.982126;Plaza Guipuzkoa;2;43.319086;-1.984727;Plaza Cervantes
+3;43.324915;-1.979981;Rompeolas;3;43.323485;-1.980090;Puente del Cursal;3;43.327255;-1.988594;Nuevo Balcon;3;43.324656;-1.993828;Construccion Vacia;3;43.326418;-1.990549;Bateria Bordacas;3;43.325856;-1.990493;Cementerio Ingleses;3;43.324077;-1.991070;Bateria Santiago;3;43.323441;-1.992025;Bateria Damas;3;43.325119;-1.988930;Castillo de la Mota;3;43.322812;-1.991966;Aquarium;3;43.321973;-1.986961;Puerto
+4;43.349387;-1.784903;Puente Internacional;4;43.340384;-1.793021;Plaza Ensanche;4;43.352461;-1.782217;Hendaia;4;43.364205;-1.771366;Bahia Txingudi;4;43.373477;-1.774216;Castillo Hendaia;4;43.371678;-1.786156;Dunas Sokoburu
+

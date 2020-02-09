@@ -11,11 +11,13 @@ import aplicacion.android.kvn.touruta.R;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class AllCommentsACT extends AppCompatActivity {
+    TextView txtName;
     RecyclerView commentRecyclerView;
     MyDBHandler dbHandler;
     SQLiteDatabase db;
@@ -26,6 +28,8 @@ public class AllCommentsACT extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_comments_act);
 
+        txtName=findViewById(R.id.txtName);
+        txtName.setText(TourDetailsACT.selectedTour.getTourName());
         commentRecyclerView = findViewById(R.id.commentsLongRecyclerView);
         commentRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         dbHandler = new MyDBHandler(this, MyDBHandler.DATABASE_NAME, null, 1);

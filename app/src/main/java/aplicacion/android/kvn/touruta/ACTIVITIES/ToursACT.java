@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import aplicacion.android.kvn.touruta.MyDBHandler;
+import aplicacion.android.kvn.touruta.OBJECTS.Checkpoint;
 import aplicacion.android.kvn.touruta.R;
 import aplicacion.android.kvn.touruta.OBJECTS.Tour;
 import aplicacion.android.kvn.touruta.ADAPTERS.TourRecyclerAdapter;
@@ -27,6 +28,7 @@ public class ToursACT extends AppCompatActivity {
     MyDBHandler dbHandler;
     SQLiteDatabase db;
     Tour newTour;
+    Checkpoint newCheckpoint;
     RecyclerView recyclerView;
     ArrayList<Tour> tourList;
     String[] pictures;
@@ -40,6 +42,8 @@ public class ToursACT extends AppCompatActivity {
         dbHandler = new MyDBHandler(this, MyDBHandler.DATABASE_NAME, null, 1);
 
         FillToursTable();
+        FillCheckpointsTable();
+
 
         tourList = new ArrayList<>();
         pictures = getResources().getStringArray(R.array.pictures);
@@ -93,8 +97,8 @@ public class ToursACT extends AppCompatActivity {
     }
 
     private void FillToursTable() {
-        if (RecordsQuantity() == 0) {
-            String[] tours = ReadArchive();
+        if (RecordsQuantity(MyDBHandler.TABLE_TOURS) == 0) {
+            String[] tours = ReadArchive(R.raw.tours);
 
             db = dbHandler.getWritableDatabase();
             for (int i = 0; i < tours.length; i++) {
@@ -109,16 +113,32 @@ public class ToursACT extends AppCompatActivity {
             db.close();
         }
     }
+    private void FillCheckpointsTable() {
+        if (RecordsQuantity(MyDBHandler.TABLE_CHECKPOINTS) == 0) {
+            String[] cp = ReadArchive(R.raw.checkpoints);
 
-    private long RecordsQuantity() {
+            db = dbHandler.getWritableDatabase();
+            for (int i = 0; i < cp.length-1; i++) {
+                String[] line = cp[i].split(";");
+                for (int j = 0; j < line.length; j+=4) {
+                    newCheckpoint = new Checkpoint( Integer.parseInt(line[j]),Double.parseDouble(line[j+1]) ,Double.parseDouble(line[j+2]),line[j+3]);
+                    dbHandler.AddCheckpoint(newCheckpoint);
+                }
+            }
+            db.close();
+        }
+    }
+
+    /**Funcion para conocer el numero de registros existentes en una tabla*/
+    private long RecordsQuantity(String tablename) {
         db = dbHandler.getReadableDatabase();
-        long qnt = DatabaseUtils.queryNumEntries(db, MyDBHandler.TABLE_TOURS);
+        long qnt = DatabaseUtils.queryNumEntries(db, tablename);
         db.close();
         return qnt;
     }
 
-    private String[] ReadArchive() {
-        InputStream inputStream = getResources().openRawResource(R.raw.tours);
+    private String[] ReadArchive(int ref) {
+        InputStream inputStream = getResources().openRawResource(ref);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
             int i = inputStream.read();

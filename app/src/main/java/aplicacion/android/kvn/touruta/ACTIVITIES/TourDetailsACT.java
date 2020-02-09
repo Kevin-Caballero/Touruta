@@ -49,8 +49,6 @@ public class TourDetailsACT extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tour_details_act);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         btnVerMas = findViewById(R.id.btnVerMas);
         btnVerMas.setOnClickListener(this);
